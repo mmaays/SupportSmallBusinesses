@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started | SmallBizHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #cf4c60;
+            --accent: #3498db;
+            --light: #f8f9fa;
+            --success: #27ae60;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Enhanced Header with Logo */
+        .simple-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-logo {
+            justify-content: end;
+            height: 50px; /* Adjust as needed */
+        }
+
+        .simple-nav {
+            display: inline-block;
+        }
+
+        .simple-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .simple-nav a:not(:last-child)::after {
+            content: "|";
+            position: absolute;
+            right: -0.5rem;
+            color: var(--border);
+        }
+
+        .simple-nav a:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .simple-header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .header-logo {
+                height: 40px;
+            }
+        }
+ .logo img {
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        /* Registration Section */
+        .registration {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            align-items: center;
+            padding: 3rem 0;
+        }
+
+        .registration-card {
+            background: white;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .registration-header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .registration-header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .registration-header p {
+            opacity: 0.9;
+        }
+
+        .registration-steps {
+            display: flex;
+            background: #f5f5f5;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .step.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .step.completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .registration-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: #f0f0f0;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .business-type {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .business-type label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .business-type label:hover {
+            border-color: var(--accent);
+        }
+
+        .business-type input[type="radio"] {
+            display: none;
+        }
+
+        .business-type input[type="radio"]:checked + label {
+            border-color: var(--accent);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .business-type i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+         .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .business-type {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="./Capture.PNG" alt="SmallBizHub">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Registration Section -->
+    <section class="registration">
+
+        <div class="container">
+            <div class="registration-card">
+                <div class="registration-header">
+                    <h1>Create Your Vendor Account</h1>
+                    <p>Start selling to customers across Palestine in just 5 minutes</p>
+                </div>
+                
+                <div class="registration-steps">
+                    <div class="step completed">1. Business Info</div>
+                    <div class="step active">2. Payment Setup</div>
+                    <div class="step">3. First Product</div>
+                </div>
+                
+                <div class="registration-body">
+                    <form id="vendorRegistration">
+                        <h2 style="margin-bottom: 1.5rem;">Payment Information</h2>
+                        
+                        <div class="form-group">
+                            <label>Preferred Payment Methods</label>
+                            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" checked> Cash on Delivery
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox"> Mobile Money
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox"> Credit Cards
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bankName">Bank Name</label>
+                                <input type="text" id="bankName" placeholder="Palestine Islamic Bank" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="accountNumber">Account Number</label>
+                                <input type="text" id="accountNumber" placeholder="PS123456789" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mobileWallet">Mobile Money Number (if applicable)</label>
+                            <input type="text" id="mobileWallet" placeholder="0599XXXXXX" >
+                        </div>
+                        
+                        <!-- In your registration form -->
+                        <div class="form-actions">
+                            <a href="index.html" class="btn btn-outline">Back</a>
+                            <a href="product-setup.html" class="btn btn-primary">Continue to Products</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelector('.btn-outline').addEventListener('click', () => {
+                window.location.href = 'index.html'; // Force redirect to homepage
+            });
+         // Simple interactivity
+        
+        // Form submission
+        document.getElementById('vendorRegistration').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Payment information saved! Redirecting to product setup...');
+            // In production: window.location.href = 'products-setup.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palestinian Marketplace | SmallBizHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #cf4c60;
+            --accent: #3498db;
+            --light: #f8f9fa;
+            --text: #333;
+            --text-light: #777;
+            --border: #e0e0e0;
+            --warning: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo img {
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-login {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-signup {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background: #c0392b;
+        }
+
+        /* Marketplace Header */
+        .marketplace-header {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .marketplace-header h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .marketplace-header p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search and Filters */
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-filter input,
+        .search-filter select {
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            min-width: 200px;
+            font-family: inherit;
+        }
+
+        .search-filter button {
+            padding: 0.7rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-filter button:hover {
+            background: #c0392b;
+        }
+
+        /* Business Grid */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .business-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .business-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .business-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .business-info {
+            padding: 1.5rem;
+        }
+
+        .business-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .location {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            color: var(--warning);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .rating span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .btn-visit {
+            display: inline-block;
+            width: 100%;
+            padding: 0.7rem;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .btn-visit:hover {
+            background: #1a252f;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.6rem 1.2rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                margin: 1rem 0;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-filter input,
+            .search-filter select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="./Capture.PNG" alt="SmallBizHub">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marketplace.html" class="active">Marketplace</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Log in</a>
+                <a href="signup.html" class="btn btn-signup">Sign up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Marketplace Header -->
+    <section class="marketplace-header">
+        <h1>Palestinian Local Businesses</h1>
+        <p>Discover and support authentic Palestinian products and services from entrepreneurs across the region</p>
+        
+        <div class="search-filter">
+            <input type="text" placeholder="Search for products or stores...">
+            <select>
+                <option value="">All Categories</option>
+                <option value="handicrafts">Handicrafts</option>
+                <option value="food">Food & Groceries</option>
+                <option value="clothing">Clothing</option>
+                <option value="art">Art & Decor</option>
+            </select>
+            <select>
+                <option value="">All Cities</option>
+                <option value="ramallah">Ramallah</option>
+                <option value="nablus">Nablus</option>
+                <option value="hebron">Hebron</option>
+                <option value="jerusalem">Jerusalem</option>
+                <option value="bethlehem">Bethlehem</option>
+                <option value="bethlehem">Tulkarm</option>
+            </select>
+            <button><i class="fas fa-search"></i> Search</button>
+        </div>
+        
+        <div class="categories">
+            <div class="category-btn active">All</div>
+            <div class="category-btn">Top Rated</div>
+            <div class="category-btn">New Stores</div>
+            <div class="category-btn">Olive Oil</div>
+            <div class="category-btn">Embroidery</div>
+            <div class="category-btn">Ceramics</div>
+            <div class="category-btn">....</div>
+        </div>
+    </section>
+
+    <!-- Business Grid -->
+    <section class="business-grid">
+        <div class="business-card">
+            <div class="business-badge">Top Rated</div>
+            <img src="./494339392_662929649972878_3513140608504005860_n.jpg" alt="Nablus Soap House">
+            <div class="business-info">
+                <h3>Nablus Soap House</h3>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Nablus, Palestine</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(42 reviews)</span>
+                </div>
+                <a href="store-nablus-soap.html" class="btn-visit">Visit Store</a>
+            </div>
+        </div>
+        
+        <div class="business-card">
+            <div class="business-badge">New</div>
+            <img src="./494342728_1093688792610218_7507953181879833674_n.jpg" alt="Candle Shop ">
+            <div class="business-info">
+                <h3>Candle Shop</h3>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Bethlehem, Palestine</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(18 reviews)</span>
+                </div>
+                <a href="store-woodcraft.html" class="btn-visit">Visit Store</a>
+            </div>
+        </div>
+        
+        <div class="business-card">
+            <img src="./494341226_2492075041146429_1195648666166534094_n.jpg" alt="Hebron Embroidery">
+            <div class="business-info">
+                <h3>Hebron Embroidery</h3>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Hebron, Palestine</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(67 reviews)</span>
+                </div>
+                <a href="store-embroidery.html" class="btn-visit">Visit Store</a>
+            </div>
+        </div>
+        
+        <!-- More business cards -->
+    </section>
+
+    <script>
+        // Category filter buttons
+        
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.category-btn.active').classList.remove('active');
+                this.classList.add('active');
+                //alert(`Filtering by: ${this.textContent}`);
+                // In production: filter business cards dynamically
+            });
+        });
+        
+
+        // Search functionality
+        document.querySelector('.search-filter button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-filter input').value;
+            const category = document.querySelector('.search-filter select:first-of-type').value;
+            const city = document.querySelector('.search-filter select:last-of-type').value;
+            
+            alert(`Searching for: ${searchTerm || 'All items'} | Category: ${category || 'All'} | City: ${city || 'All'}`);
+            // In production: make API call with these filters
+        });
+    </script>
+</body>
+</html>

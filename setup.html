@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Setup | SmallBizHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #cf4c60;
+            --accent: #3498db;
+            --light: #f8f9fa;
+            --success: #27ae60;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: #333;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav li a:hover, 
+        .sidebar-nav li.active a {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        /* Setup Content */
+        .setup-header {
+            margin-bottom: 2rem;
+        }
+
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .progress-tracker::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #eee;
+            z-index: 1;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            height: 4px;
+            background: var(--success);
+            z-index: 2;
+            width: 75%; /* Dynamic based on progress */
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+        }
+
+        .step-number {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #eee;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            border: 4px solid white;
+        }
+
+        .step.active .step-number {
+            background: var(--success);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+
+        .step.completed .step-number::after {
+            content: "✓";
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .setup-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+
+        .setup-tips {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .setup-tips h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .tip {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip i {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+
+            .progress-tracker {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .progress-tracker::before,
+            .progress-bar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Store Setup</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="setup.html"><i class="fas fa-store"></i> Store Setup</a></li>
+                    <li><a href="products.html"><i class="fas fa-box-open"></i> Add Products</a></li>
+                    <li><a href="payments.html"><i class="fas fa-money-bill-wave"></i> Set Up Payments</a></li>
+                    <li><a href="design.html"><i class="fas fa-palette"></i> Customize Design</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="setup-header">
+                <h1>Easy Store Setup</h1>
+                <p>Follow these simple steps to get your store ready for customers</p>
+            </div>
+
+            <div class="progress-tracker">
+                <div class="progress-bar" style="width: 75%;"></div>
+                <div class="step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Basic Info</div>
+                </div>
+                <div class="step completed">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Products</div>
+                </div>
+                <div class="step active">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payments</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Launch</div>
+                </div>
+            </div>
+
+            <div class="setup-form">
+                <h2>Set Up Payment Methods</h2>
+                <p>Choose how you want to accept payments from customers</p>
+
+                <div class="form-group">
+                    <label for="payment-methods">Select Payment Methods</label>
+                    <select id="payment-methods" multiple size="4">
+                        <option selected>Cash on Delivery</option>
+                        <option selected>Mobile Money (PalPay)</option>
+                        <option>Credit/Debit Cards</option>
+                        <option>Bank Transfer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="currency">Default Currency</label>
+                    <select id="currency">
+                        <option selected>Israeli Shekel (₪)</option>
+                        <option>US Dollar ($)</option>
+                        <option>Euro (€)</option>
+                        <option>Jordanian Dinar (JD)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bank-details">Bank Account Details (if applicable)</label>
+                    <textarea id="bank-details" placeholder="Bank name, account number, etc."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-secondary">Back</button>
+                    <button class="btn btn-primary">Save & Continue</button>
+                </div>
+            </div>
+
+            <div class="setup-tips">
+                <h3>Quick Tips for Payment Setup</h3>
+                <div class="tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Cash on Delivery</strong> is the most popular payment method in Palestine - we recommend enabling it
+                    </div>
+                </div>
+                <div class="tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Mobile Money</strong> services like PalPay are widely used for online purchases
+                    </div>
+                </div>
+                <div class="tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        You can add or change payment methods anytime in your store settings
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Form submission
+        document.querySelector('.btn-primary').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Payment methods saved! Moving to next step...');
+            // In real implementation: window.location.href = 'setup4.html';
+        });
+
+        // Progress tracker interaction
+        document.querySelectorAll('.step').forEach(step => {
+            step.addEventListener('click', function() {
+                const stepNum = this.querySelector('.step-number').textContent;
+                alert(`Jump to step ${stepNum} (disabled in demo)`);
+            });
+        });
+    </script>
+</body>
+</html>
